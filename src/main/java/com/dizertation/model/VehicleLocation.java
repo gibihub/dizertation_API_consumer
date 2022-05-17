@@ -1,7 +1,10 @@
-package com.dizertation.dizertation.model;
+package com.dizertation.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VehicleLocation {
     private double lat;
     private double lon;

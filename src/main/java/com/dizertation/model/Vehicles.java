@@ -1,8 +1,11 @@
-package com.dizertation.dizertation.model;
+package com.dizertation.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Vehicles {
     private List<Vehicle> vehicleList;
 

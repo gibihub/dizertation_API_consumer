@@ -1,4 +1,4 @@
-package com.dizertation.dizertation;
+package com.dizertation;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
