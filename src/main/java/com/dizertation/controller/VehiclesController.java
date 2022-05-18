@@ -21,7 +21,7 @@ public class VehiclesController {
     
     @GetMapping("/vehicles")
     public List<Vehicle> getVehiclesById(@RequestParam(value = "r") String id) {
-        String url = "https://rt.api.opentransport.ro/api/v1/key/f78a2e9a/agency/ro.stpt/command/vehicles?r=r1551&format=json";
+        String url = "https://rt.api.opentransport.ro/api/v1/key/f78a2e9a/agency/ro.stpt/command/";
         Vehicle[] vehicles= restTemplate.getForObject(url, Vehicle[].class);
         List<Vehicle> vehiclesList = Arrays.asList(vehicles);
         System.out.println("Bus id : " + vehiclesList.get(0).getId());
