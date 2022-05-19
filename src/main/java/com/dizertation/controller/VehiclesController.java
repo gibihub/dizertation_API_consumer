@@ -4,12 +4,10 @@ import com.dizertation.converters.GeoJSONConverter;
 import com.dizertation.model.Vehicle;
 import com.dizertation.service.ParsingService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class VehiclesController {
@@ -22,9 +20,9 @@ public class VehiclesController {
     @Autowired
     private GeoJSONConverter converter;
 
-    @GetMapping( "vehicles")
+    @GetMapping( path = "vehicles")
     public void main() {
-        Map<String, List<Vehicle>> vehicleMap = parsingService.parse(E2_PAGE_JSON);
+        List<Vehicle> vehicleMap = parsingService.parse(E2_PAGE_JSON);
         converter.convertTo(vehicleMap);
     }
 }

@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class GeoJSONConverter {
 
-    public List<GeoJSONModel> convertTo(Map<String, List<Vehicle>> vehicleMap) {
-        List<GeoJSONModel> actual = new ArrayList<GeoJSONModel>();
-        for (int i = 0 ; i < vehicleMap.get("vehicles").size(); i++) {
+    public List<GeoJSONModel> convertTo(List<Vehicle> vehicleList) {
+        List<GeoJSONModel> actual = new ArrayList<>();
+        for (Vehicle vehicle : vehicleList) {
+
             GeoJSONModel model = new GeoJSONModel();
 
-            Double latitude = vehicleMap.get("vehicles").get(i).get("loc").get("lat");
-            Double longitude = vehicleMap.get("vehicles").get(i).get("loc").get("lon");
+            Double latitude = vehicle.getLocation().getLat();
+            Double longitude = vehicle.getLocation().getLon();
 
             Geometry modelGeometry = new Geometry();
             modelGeometry.setGeometryType("Point");
@@ -27,13 +27,12 @@ public class GeoJSONConverter {
             List<Double> coordinates = new ArrayList<>();
             coordinates.add(latitude);
             coordinates.add(longitude);
-
             modelGeometry.setCoordinates(coordinates);
 
             Properties modelProperties = new Properties();
-            modelProperties.setName(vehicleMap.get("vehicles").get(i).get("routeShortName"));
+            modelProperties.setName(vehicle.getRouteShortName());
 
-            model.setType(vehicleMap.get("vehicles").get(i).get("id"));
+            model.setType(vehicle.getId());
             model.setProperties(modelProperties);
             model.setGeometry(modelGeometry);
 
