@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
+@ComponentScan( "com.dizertation")
 public class DizertationApplication {
 
 	public static void main(String[] args) {

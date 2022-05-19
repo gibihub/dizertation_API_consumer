@@ -1,8 +1,12 @@
 package com.dizertation.service;
 
+import com.dizertation.model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class JsonParsingService implements ParsingService{
@@ -17,7 +21,7 @@ public class JsonParsingService implements ParsingService{
      * @param url
      */
     @Override
-    public Object parse(String url) {
-        return restTemplate.getForObject(url, Object.class);
+    public Map<String, List<Vehicle>> parse(String url) {
+        return restTemplate.getForObject(url, Map.class);
     }
 }

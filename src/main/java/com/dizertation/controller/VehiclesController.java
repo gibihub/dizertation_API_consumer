@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class VehiclesController {
@@ -26,10 +27,10 @@ public class VehiclesController {
     @Autowired
     private ParsingService parsingService;
 
-    @GetMapping
-    public String main(final Model model) {
-        List<Vehicle> vehicleList = (List<Vehicle>)parsingService.parse(E2_PAGE_JSON);
-        model.addAttribute("vehicle", vehicleList.get(0));
-        return MAIN_PAGE;
+    @GetMapping( "vehicles")
+    public String main() {
+        Map<String, List<Vehicle>> vehicleMap = parsingService.parse(E2_PAGE_JSON);
+        System.out.println("Vehicle id: " + vehicleMap.get("vehicles").get(0).getId());
+        return ":fsadjkfgasdl;";
     }
 }
