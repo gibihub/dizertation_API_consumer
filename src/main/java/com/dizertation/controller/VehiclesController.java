@@ -32,5 +32,4 @@ public class VehiclesController {
         model.addAttribute("vehicle", vehicleList.get(0));
         return MAIN_PAGE;
     }
-
 }
