@@ -1,6 +1,7 @@
 package com.dizertation.service;
 
-import com.dizertation.model.Vehicle;
+import com.dizertation.model.route.Route;
+import com.dizertation.model.vehicle.Vehicle;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface ParsingService {
      * the desired model class
      */
 
-    List<Vehicle> parse(String url);
+    List<Vehicle> parseVehicles(String url);
 }

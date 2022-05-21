@@ -1,7 +1,8 @@
 package com.dizertation.controller;
 
 import com.dizertation.converters.GeoJSONConverter;
-import com.dizertation.model.Vehicle;
+import com.dizertation.model.vehicle.Vehicle;
+import com.dizertation.model.geoJson.GeoJSONModel;
 import com.dizertation.service.ParsingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,8 @@ public class VehiclesController {
     private GeoJSONConverter converter;
 
     @GetMapping( path = "vehicles")
-    public void main() {
-        List<Vehicle> vehicleMap = parsingService.parse(E2_PAGE_JSON);
-        converter.convertTo(vehicleMap);
+    public List<GeoJSONModel> convertVehicleToGeoJSON() {
+        List<Vehicle> vehicleList = parsingService.parseVehicles(E2_PAGE_JSON);
+        return converter.convertTo(vehicleList);
     }
 }

@@ -1,6 +1,6 @@
 package com.dizertation.converters;
 
-import com.dizertation.model.Vehicle;
+import com.dizertation.model.vehicle.Vehicle;
 import com.dizertation.model.geoJson.GeoJSONModel;
 import com.dizertation.model.geoJson.Geometry;
 import com.dizertation.model.geoJson.Properties;

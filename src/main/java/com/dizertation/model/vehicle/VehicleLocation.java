@@ -1,4 +1,4 @@
-package com.dizertation.model;
+package com.dizertation.model.vehicle;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

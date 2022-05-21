@@ -1,7 +1,8 @@
 package com.dizertation.service;
 
-import com.dizertation.model.Vehicle;
-import com.dizertation.model.VehicleLocation;
+import com.dizertation.model.route.Route;
+import com.dizertation.model.vehicle.Vehicle;
+import com.dizertation.model.vehicle.VehicleLocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class JsonParsingService implements ParsingService{
+public class VehicleParsingService implements ParsingService{
 
     @Autowired
     private RestTemplate restTemplate;
@@ -23,7 +24,7 @@ public class JsonParsingService implements ParsingService{
      * @param url
      */
     @Override
-    public List<Vehicle> parse(String url) {
+    public List<Vehicle> parseVehicles(String url) {
 
         List<Object> vehicles = (List<Object>) restTemplate.getForObject(url, Map.class).get("vehicles");
         List<Vehicle> vehicleList = new ArrayList<>();
@@ -32,9 +33,6 @@ public class JsonParsingService implements ParsingService{
             Map<String, Object> map = (Map<String, Object>) obj;
 
             Map<String, Object> locationMap = (Map<String, Object>) map.get("loc");
-
-            locationMap.get("lat");
-            locationMap.get("lon");
 
             VehicleLocation vehicleLocation = new VehicleLocation(
                     (Double) locationMap.get("lat"),
@@ -53,7 +51,6 @@ public class JsonParsingService implements ParsingService{
                     vehicleLocation);
 
             vehicleList.add(vehicle);
-
         }
         return vehicleList;
     }
