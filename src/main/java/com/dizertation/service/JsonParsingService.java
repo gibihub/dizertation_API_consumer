@@ -53,7 +53,6 @@ public class JsonParsingService implements ParsingService{
                     vehicleLocation);
 
             vehicleList.add(vehicle);
-
         }
         return vehicleList;
     }
