@@ -2,6 +2,8 @@ package com.dizertation.model.route;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,5 +17,5 @@ public class Route {
     private String longName;
 
     private Extent extent;
-    private Direction direction;
+    private List<Direction> direction;
 }

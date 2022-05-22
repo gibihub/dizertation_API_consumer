@@ -1,10 +1,14 @@
 package com.dizertation.controller;
 
+import com.dizertation.database.model.Station;
+import com.dizertation.database.repository.StationRepository;
 import com.dizertation.model.route.Route;
 import com.dizertation.service.ParsingService;
 import com.dizertation.service.StationParsingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,9 +21,28 @@ public class RouteController {
     @Autowired
     private StationParsingService parsingService;
 
+    @Autowired
+    private StationRepository repository;
+
     @GetMapping(path = "routes")
     public List<Route> getRoutesForE2() {
-        List<Route> routeList = parsingService.parseRoute(E2_ROUTES_URL);
-        return routeList;
+        return parsingService.parseRoute(E2_ROUTES_URL);
+    }
+
+    @PostMapping("/addRoute")
+    public String saveRoute(@RequestBody Station station) {
+        List<Route> routeList = getRoutesForE2();
+
+        int stationSize = routeList.get(0).getDirection().get(0).getStations().size();
+
+        for (int i = 0; i< stationSize; i++) {
+            station.setId(routeList.get(0).getDirection().get(0).getStations().get(i).getId());
+            station.setName(routeList.get(0).getDirection().get(0).getStations().get(i).getName());
+            station.setLatitude(routeList.get(0).getDirection().get(0).getStations().get(i).getLat());
+            station.setLongitude(routeList.get(0).getDirection().get(0).getStations().get(i).getLon());
+
+            repository.save(station);
+        }
+        return "Added Station direction 0 list to database";
     }
 }

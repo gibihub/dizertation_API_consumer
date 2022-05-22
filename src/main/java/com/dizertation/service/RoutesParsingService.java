@@ -32,31 +32,63 @@ public class RoutesParsingService implements StationParsingService{
             directionIdZero.setId(directionMap.get(0).get("id").toString());
             directionIdZero.setTitle(directionMap.get(0).get("title").toString());
 
-            List<Station> stationId0List = new ArrayList<>();
-            List<Object> stationListFromMap = (List<Object>) directionMap.get(0).get("stop");
+            Direction directionId1 = new Direction();
+            directionId1.setId(directionMap.get(1).get("id").toString());
+            directionId1.setTitle(directionMap.get(1).get("title").toString());
 
-            for(int i=0; i<stationListFromMap.size(); i++) {
+            List<Station> stationId0List = new ArrayList<>();
+            List<Station> stationId1List = new ArrayList<>();
+            List<Object> stationId0ListFromMap = (List<Object>) directionMap.get(0).get("stop");
+            List<Object> stationId1ListFromMap = (List<Object>) directionMap.get(1).get("stop");
+
+            for(int i=0; i<stationId0ListFromMap.size(); i++) {
+
+                Map<String, Object> mapFor = (Map<String, Object>) stationId0ListFromMap.get(i);
+
                 Station station = new Station();
-                station.setId(stationListFromMap.get(0).get("id"));
-                station.setName();
-                station.setLat();
-                station.setLon();
+                station.setId(mapFor.get("id").toString());
+                station.setName(mapFor.get("name").toString());
+                station.setLat((Double)mapFor.get("lat"));
+                station.setLon((Double)mapFor.get("lon"));
 
                 stationId0List.add(station);
             }
+            directionIdZero.setStations(stationId0List);
 
-            directionIdZero.setStations();
+
+            for(int i=0; i<stationId1ListFromMap.size(); i++) {
+
+                Map<String, Object> mapFor = (Map<String, Object>) stationId1ListFromMap.get(i);
+
+                Station station = new Station();
+                station.setId(mapFor.get("id").toString());
+                station.setName(mapFor.get("name").toString());
+                station.setLat((Double)mapFor.get("lat"));
+                station.setLon((Double)mapFor.get("lon"));
+
+                stationId1List.add(station);
+            }
+
+            directionId1.setStations(stationId1List);
+
+            List<Direction> directionList = new ArrayList<>();
+            directionList.add(directionIdZero);
+            directionList.add(directionId1);
 
             Extent extent = new Extent();
             extent.setMaxLat((Double) extentMap.get("maxLat"));
             extent.setMinLat((Double) extentMap.get("minLat"));
             extent.setMaxLat((Double) extentMap.get("maxLat"));
             extent.setMaxLat((Double) extentMap.get("maxLat"));
+
             Route route = new Route();
-           // route.set
+            route.setDirection(directionList);
+            route.setExtent(extent);
+            route.setId(map.get("id").toString());
+            route.setLongName(map.get("longName").toString());
 
+            routeList.add(route);
         }
-
         return routeList;
     }
 }
