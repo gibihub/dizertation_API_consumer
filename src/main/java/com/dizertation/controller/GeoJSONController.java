@@ -21,10 +21,13 @@ public class GeoJSONController {
     public String saveGeoJSON(@RequestBody GeoJSON geoJSON) {
         List<GeoJSONModel> geoJSONModelList = vehiclesController.convertVehicleToGeoJSON();
 
+        repository.deleteAll();
+
         for(GeoJSONModel model: geoJSONModelList) {
             geoJSON.setId(model.getType());
             geoJSON.setLatitude(model.getGeometry().getCoordinates().get(0));
             geoJSON.setLongitude(model.getGeometry().getCoordinates().get(1));
+            geoJSON.setName(model.getProperties().getName());
 
             repository.save(geoJSON);
         }
