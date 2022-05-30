@@ -29,7 +29,7 @@ public class RouteController {
     }
 
     @PostMapping("/addRoute")
-    public String saveRoute(@RequestBody Station station) {
+    public List<Route> saveRoute(@RequestBody Station station) {
         List<Route> routeList = getRoutesForE2();
 
         int stationSize = routeList.get(0).getDirection().get(0).getStations().size();
@@ -42,6 +42,6 @@ public class RouteController {
 
             repository.save(station);
         }
-        return "Added Station direction 0 list to database";
+        return routeList;
     }
 }
