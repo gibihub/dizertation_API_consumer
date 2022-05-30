@@ -5,6 +5,7 @@ import com.dizertation.database.repository.StationRepository;
 import com.dizertation.model.route.Route;
 import com.dizertation.service.StationParsingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ public class RouteController {
     private static final String E2_ROUTES_URL =
             "https://rt.api.opentransport.ro/api/v1/key/f78a2e9a/agency/ro.stpt/command/routesDetails?r=E2&format=json";
 
+    @Qualifier("stationParsingService")
     @Autowired
     private StationParsingService parsingService;
 
@@ -29,11 +31,12 @@ public class RouteController {
     }
 
     @PostMapping("/addRoute")
-    public String saveRoute(@RequestBody Station station) {
+    public String saveRoute() {
         List<Route> routeList = getRoutesForE2();
 
         int stationSize = routeList.get(0).getDirection().get(0).getStations().size();
 
+        Station station = new Station();
         for (int i = 0; i< stationSize; i++) {
             station.setId(routeList.get(0).getDirection().get(0).getStations().get(i).getId());
             station.setName(routeList.get(0).getDirection().get(0).getStations().get(i).getName());
