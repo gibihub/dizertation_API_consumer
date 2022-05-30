@@ -36,8 +36,9 @@ public class RouteController {
 
         List<Station> stationsList = new ArrayList<>();
 
-        Station station = new Station();
         for (int i = 0; i< stationSize; i++) {
+            Station station = new Station();
+
             station.setId(routeList.get(0).getDirection().get(0).getStations().get(i).getId());
             station.setName(routeList.get(0).getDirection().get(0).getStations().get(i).getName());
             station.setLatitude(routeList.get(0).getDirection().get(0).getStations().get(i).getLat());
