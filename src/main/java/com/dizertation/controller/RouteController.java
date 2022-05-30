@@ -7,7 +7,6 @@ import com.dizertation.service.StationParsingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,11 +28,12 @@ public class RouteController {
     }
 
     @PostMapping("/addRoute")
-    public List<Route> saveRoute(@RequestBody Station station) {
+    public List<Route> saveRoute() {
         List<Route> routeList = getRoutesForE2();
 
         int stationSize = routeList.get(0).getDirection().get(0).getStations().size();
 
+        Station station = new Station();
         for (int i = 0; i< stationSize; i++) {
             station.setId(routeList.get(0).getDirection().get(0).getStations().get(i).getId());
             station.setName(routeList.get(0).getDirection().get(0).getStations().get(i).getName());
