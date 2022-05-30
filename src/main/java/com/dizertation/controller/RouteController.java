@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,10 +29,12 @@ public class RouteController {
     }
 
     @PostMapping("/addRoute")
-    public List<Route> saveRoute() {
+    public List<Station> saveRoute() {
         List<Route> routeList = getRoutesForE2();
 
         int stationSize = routeList.get(0).getDirection().get(0).getStations().size();
+
+        List<Station> stationsList = new ArrayList<>();
 
         Station station = new Station();
         for (int i = 0; i< stationSize; i++) {
@@ -40,8 +43,9 @@ public class RouteController {
             station.setLatitude(routeList.get(0).getDirection().get(0).getStations().get(i).getLat());
             station.setLongitude(routeList.get(0).getDirection().get(0).getStations().get(i).getLon());
 
+            stationsList.add(station);
             repository.save(station);
         }
-        return routeList;
+        return stationsList;
     }
 }
