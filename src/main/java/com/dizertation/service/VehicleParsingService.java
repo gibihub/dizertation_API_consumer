@@ -61,12 +61,4 @@ public class VehicleParsingService implements ParsingService{
         }
         return vehicleList;
     }
-
-    @Override
-    public List<GeoJSONModel> parseVehiclesById(String id) {
-        List<Map<String, Object>> vehicles = (List<Map<String, Object>>) restTemplate.getForObject(VEHICLES_URL, Map.class).get("vehicles");
-        List<GeoJSONModel> geoJSONModelList = new ArrayList<>();
-
-        return geoJSONModelList;
-    }
 }

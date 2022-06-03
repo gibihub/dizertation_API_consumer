@@ -16,6 +16,4 @@ public interface ParsingService {
      */
 
     List<Vehicle> parseVehicles(String url);
-
-    List<GeoJSONModel> parseVehiclesById(String id);
 }
