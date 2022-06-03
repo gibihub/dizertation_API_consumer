@@ -17,9 +17,9 @@ public class GeoJSONController {
     @Autowired
     private VehiclesController vehiclesController;
 
-    @PostMapping("/addVehicle")
-    public String saveGeoJSON(@RequestBody GeoJSON geoJSON) {
-        List<GeoJSONModel> geoJSONModelList = vehiclesController.convertVehicleToGeoJSON();
+    @PostMapping("/addVehicle/{id}")
+    public String saveGeoJSON(@RequestBody GeoJSON geoJSON, @PathVariable String id) {
+        List<GeoJSONModel> geoJSONModelList = vehiclesController.convertVehicleToGeoJSON(id);
 
         repository.deleteAll();
 

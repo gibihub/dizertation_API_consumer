@@ -22,14 +22,10 @@ public class VehiclesController {
     @Autowired
     private GeoJSONConverter converter;
 
-    @GetMapping( path = "vehicles")
-    public List<GeoJSONModel> convertVehicleToGeoJSON() {
-        List<Vehicle> vehicleList = parsingService.parseVehicles(E2_PAGE_JSON);
+    @GetMapping( path = "vehicles/{id}" )
+    public List<GeoJSONModel> convertVehicleToGeoJSON(@PathVariable String id) {
+        String url = String.format("https://rt.api.opentransport.ro/api/v1/key/f78a2e9a/agency/ro.stpt/command/vehicles?r=%s&format=json", id);
+        List<Vehicle> vehicleList = parsingService.parseVehicles(url);
         return converter.convertTo(vehicleList);
-    }
-
-    @GetMapping(value= "/vehicles/{id}")
-    public List<GeoJSONModel> convertVehicleToGeoJSONById(@PathVariable String id){
-        return parsingService.parseVehiclesById(id);
     }
 }
