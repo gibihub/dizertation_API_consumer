@@ -1,5 +1,7 @@
 package com.dizertation.service;
 
+import com.dizertation.converters.GeoJSONConverter;
+import com.dizertation.model.geoJson.GeoJSONModel;
 import com.dizertation.model.route.Route;
 import com.dizertation.model.vehicle.Vehicle;
 import com.dizertation.model.vehicle.VehicleLocation;
@@ -14,8 +16,13 @@ import java.util.Map;
 @Service
 public class VehicleParsingService implements ParsingService{
 
+    private static final String VEHICLES_URL = "https://rt.api.opentransport.ro/api/v1/key/f78a2e9a/agency/ro.stpt/command/vehicles";
+
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private GeoJSONConverter converter;
 
     /**
      * Service to parse the Json response and convert it to
@@ -53,5 +60,13 @@ public class VehicleParsingService implements ParsingService{
             vehicleList.add(vehicle);
         }
         return vehicleList;
+    }
+
+    @Override
+    public List<GeoJSONModel> parseVehiclesById(String id) {
+        List<Map<String, Object>> vehicles = (List<Map<String, Object>>) restTemplate.getForObject(VEHICLES_URL, Map.class).get("vehicles");
+        List<GeoJSONModel> geoJSONModelList = new ArrayList<>();
+
+        return geoJSONModelList;
     }
 }

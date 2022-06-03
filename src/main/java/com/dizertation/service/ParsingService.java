@@ -1,5 +1,6 @@
 package com.dizertation.service;
 
+import com.dizertation.model.geoJson.GeoJSONModel;
 import com.dizertation.model.route.Route;
 import com.dizertation.model.vehicle.Vehicle;
 import org.springframework.stereotype.Component;
@@ -15,4 +16,6 @@ public interface ParsingService {
      */
 
     List<Vehicle> parseVehicles(String url);
+
+    List<GeoJSONModel> parseVehiclesById(String id);
 }

@@ -6,6 +6,7 @@ import com.dizertation.model.geoJson.GeoJSONModel;
 import com.dizertation.service.ParsingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,5 +26,10 @@ public class VehiclesController {
     public List<GeoJSONModel> convertVehicleToGeoJSON() {
         List<Vehicle> vehicleList = parsingService.parseVehicles(E2_PAGE_JSON);
         return converter.convertTo(vehicleList);
+    }
+
+    @GetMapping(value= "/vehicles/{id}")
+    public List<GeoJSONModel> convertVehicleToGeoJSONById(@PathVariable String id){
+        return parsingService.parseVehiclesById(id);
     }
 }
