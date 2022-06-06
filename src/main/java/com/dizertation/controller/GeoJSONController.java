@@ -6,6 +6,7 @@ import com.dizertation.model.geoJson.GeoJSONModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,20 +19,24 @@ public class GeoJSONController {
     private VehiclesController vehiclesController;
 
     @PostMapping("/addVehicle/{id}")
-    public String saveGeoJSON(@RequestBody GeoJSON geoJSON, @PathVariable String id) {
+    public List<GeoJSON> saveGeoJSON(@PathVariable String id) {
         List<GeoJSONModel> geoJSONModelList = vehiclesController.convertVehicleToGeoJSON(id);
+        List<GeoJSON> geoJSONList = new ArrayList<>();
 
         repository.deleteAll();
 
         for(GeoJSONModel model: geoJSONModelList) {
+            GeoJSON geoJSON = new GeoJSON();
+
             geoJSON.setId(model.getType());
             geoJSON.setLatitude(model.getGeometry().getCoordinates().get(0));
             geoJSON.setLongitude(model.getGeometry().getCoordinates().get(1));
             geoJSON.setName(model.getProperties().getName());
 
+            geoJSONList.add(geoJSON);
             repository.save(geoJSON);
         }
-        return "Added geoJSONModel list to database";
+        return geoJSONList;
     }
 
     @GetMapping("/findAllGeoJSON")
