@@ -15,8 +15,6 @@ import java.util.List;
 
 @RestController
 public class RouteController {
-    private static final String E2_ROUTES_URL =
-            "https://rt.api.opentransport.ro/api/v1/key/f78a2e9a/agency/ro.stpt/command/routesDetails?r=E2&format=json";
 
     @Autowired
     private StationParsingService parsingService;
